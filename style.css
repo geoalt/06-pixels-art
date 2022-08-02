@@ -51,6 +51,10 @@ header {
 }
 
 /* Color Palette */
+#color-palette {
+  min-height: 1px;
+  min-width: 1px;
+}
 section:first-child {
   margin-bottom: 60px;
 }
