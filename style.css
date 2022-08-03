@@ -72,8 +72,8 @@ section:nth-child(2) {
   margin-bottom: 300px;
 }
 #pixel-board {
-  min-height: 200px;
-  min-width: 200px;
+  min-height: 10px;
+  min-width: 10px;
 }
 
 
@@ -87,7 +87,7 @@ section:nth-child(2) {
 
 /* Footer */
 footer {
-  background-color: #C5DCD2;
+  background-color: #c5dcd2;
   border-top: 1px solid #eff5f2;
   padding: 40px;
   width: 100%;
@@ -128,7 +128,7 @@ input:focus {
 }
 
 .btn-reset {
-  background-color: #E9DFC6;
+  background-color: #E9dfc6;
   border: none;
   border-radius: 5px;
   color: #7c6c79;
@@ -139,7 +139,7 @@ input:focus {
 
 .btn-reset:hover {
   background-color:#7c6c79;
-  color: #C9AFC4;
+  color: #c9afc4;
 }
 
 /* Wrappers */

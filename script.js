@@ -1,5 +1,10 @@
 const accessPalette = document.querySelector('#color-palette');
 const accessBoardPixels = document.querySelector('#pixel-board');
+const accessInput = document.querySelector('input');
+const accessVQV = document.getElementById('generate-board');
+const accessReset = document.getElementById('clear-board');
+
+accessInput.value = JSON.parse(sessionStorage.getItem('boardSize'))
 
 // Functions
 // Gera uma criar aleatoria
@@ -22,23 +27,16 @@ const getColor = (event) => {
   let savedColor = '';
   let settledClass = event.target.classList;
   savedColor = getComputedStyle(event.target).backgroundColor;
-  sessionStorage.setItem('color', JSON.stringify(savedColor));
-
+  sessionStorage.setItem('color', JSON.stringify(savedColor))
   removeClass(settledClass);
-
   event.target.classList.add('selected');
 };
 
 const receiveColor = (event) => {
-  const changeColor = JSON.parse(sessionStorage.getItem('color'));
-
-
+  let changeColor = JSON.parse(sessionStorage.getItem('color'));
   event.target.style.backgroundColor = changeColor;
 
 };
-
-
-
 
 
 // Cria paleta de cores
@@ -58,31 +56,48 @@ for (let i = 0; i < numOfColors; i += 1) {
     createDiv.classList.add('color');
     createDiv.style.backgroundColor = generateRandomColor();
   }
-
-
-
 }
+
+// Espera evento para disparar funcao que guarda a cor
 const accessColor = document.querySelectorAll('.color');
-
-
 for (let i of accessColor) {
   i.addEventListener('click', getColor);
 }
 
-
 // Cria a Board Pixels
-let boardSize = 5;
-for (let rows = 0; rows < boardSize; rows += 1) {
-  const createDiv = document.createElement('div');
-  accessBoardPixels.insertBefore(createDiv, accessBoardPixels.lastElementChild);
-  createDiv.classList.add('row');
-  for (let boxes = 0; boxes < boardSize; boxes += 1) {
+const generateBoard = (size) => {
+  for (let rows = 0; rows < size; rows += 1) {
     const createDiv = document.createElement('div');
-    const accessRows = document.querySelectorAll('.row')
-    let toAddEventInPixels = accessRows[rows].appendChild(createDiv);
-    toAddEventInPixels.addEventListener('click', receiveColor);
-    createDiv.classList.add('pixel');
-    createDiv.style.backgroundColor = 'white';
+    accessBoardPixels.insertBefore(createDiv, accessBoardPixels.lastElementChild);
+    createDiv.classList.add('row', 'clearfix');
+    for (let boxes = 0; boxes < size; boxes += 1) {
+      const createDiv = document.createElement('div');
+      const accessRows = document.querySelectorAll('.row')
+      let toAddEventInPixels = accessRows[rows].appendChild(createDiv);
+      toAddEventInPixels.addEventListener('click', receiveColor);
+      createDiv.classList.add('pixel');
+      createDiv.style.backgroundColor = 'white';
+    }
   }
 }
 
+// Muda tamanho do Quadro de Pixel
+accessVQV.addEventListener('click', () => {
+  sessionStorage.setItem('boardSize', JSON.stringify(accessInput.value));
+  window.location.reload();
+});
+
+// Limpa as cores do Quadro de Pixel
+accessReset.addEventListener('click', () => {
+  const accessPixels = document.querySelectorAll('.pixel');
+  for (let i of accessPixels) {
+    i.style.backgroundColor = 'white'
+  }
+});
+
+
+// Loads padroes
+window.onload = () => {
+  generateBoard(JSON.parse(sessionStorage.getItem('boardSize')));
+  sessionStorage.setItem('color', JSON.stringify('black'));
+}
