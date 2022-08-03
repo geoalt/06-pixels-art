@@ -1,103 +1,110 @@
-const accessPalette = document.querySelector('#color-palette');
-const accessBoardPixels = document.querySelector('#pixel-board');
-const accessInput = document.querySelector('input');
-const accessVQV = document.getElementById('generate-board');
-const accessReset = document.getElementById('clear-board');
+const selectPalette = document.querySelector('#color-palette');
+const selectBoard = document.querySelector('#pixel-board');
+const selectCleannerButton = document.querySelector('#clear-board');
 
-accessInput.value = JSON.parse(sessionStorage.getItem('boardSize'))
 
-// Functions
-// Gera uma criar aleatoria
-const generateRandomColor = () => {
-  let randColor = Math.floor(Math.random() * 16777215).toString(16); // Watched in CSS-Tricks: https://css-tricks.com/snippets/javascript/random-hex-color/#:~:text=var%20randomColor%20%3D%20Math.,random()*16777215)
+const numberOfColorOptions = 4;
+const numberOfPixels = 5;
+let selectedColor;
 
-  return `#${randColor}`;
-}
+/*---------------------------------------
+Inicio: criando o elemento Color Palette
+-----------------------------------------*/
+// Funcao que cria uma cor aleatoria
+const generateRandColor = () => {
+  let setRed = Math.floor(Math.random() * 255);
+  let setGreen = Math.floor(Math.random() * 255);
+  let setBlue = Math.floor(Math.random() * 255);
 
-// Remove as classes
-const removeClass = (element) => {
-  for (let i of accessColor) {
-    i.classList.remove('selected')
+  return `rgb(${setRed}, ${setGreen}, ${setBlue})`;
+};
 
+
+// Funcao que pega a cor da paleta selecionada
+const getColor = () => {
+  let test = document.querySelector('.selected');
+  selectedColor = getComputedStyle(test).backgroundColor;
+};
+
+// Funcao que alterna a classe 'selected'
+const toggleClass = (e) => {
+  for (let element of selectPalette.children) {
+    element.classList.remove('selected');
   }
-};
-
-// Guarda a cor da paleta, e altera a classe 'selected' dos elementos
-const getColor = (event) => {
-  let savedColor = '';
-  let settledClass = event.target.classList;
-  savedColor = getComputedStyle(event.target).backgroundColor;
-  sessionStorage.setItem('color', JSON.stringify(savedColor))
-  removeClass(settledClass);
-  event.target.classList.add('selected');
-};
-
-const receiveColor = (event) => {
-  let changeColor = JSON.parse(sessionStorage.getItem('color'));
-  event.target.style.backgroundColor = changeColor;
+  e.target.classList.add('selected');
 
 };
 
-
-// Cria paleta de cores
-let numOfColors = 4;
-const createColor = document.createElement('div');
-
-for (let i = 0; i < numOfColors; i += 1) {
-  const createDiv = document.createElement('div');
-  if (i === 0) {
-    accessPalette.insertBefore(createDiv, accessPalette.lastElementChild)
-    createDiv.addEventListener('click', getColor);
-    createDiv.classList.add('color', 'selected');
-    createDiv.style.backgroundColor = 'black';
-  } else {
-    accessPalette.insertBefore(createDiv, accessPalette.lastElementChild)
-    createDiv.addEventListener('click', getColor);
+// Funcao que gera as cores da paleta
+const generatePalette = () => {
+  for (let i = 0; i < numberOfColorOptions; i += 1) {
+    const createDiv = document.createElement('DIV');
     createDiv.classList.add('color');
-    createDiv.style.backgroundColor = generateRandomColor();
-  }
-}
+    createDiv.style.backgroundColor = generateRandColor();
+    createDiv.addEventListener('click', toggleClass);
+    createDiv.addEventListener('click', getColor);
+    selectPalette.insertBefore(createDiv, selectPalette.lastElementChild);
 
-// Espera evento para disparar funcao que guarda a cor
-const accessColor = document.querySelectorAll('.color');
-for (let i of accessColor) {
-  i.addEventListener('click', getColor);
-}
-
-// Cria a Board Pixels
-const generateBoard = (size) => {
-  for (let rows = 0; rows < size; rows += 1) {
-    const createDiv = document.createElement('div');
-    accessBoardPixels.insertBefore(createDiv, accessBoardPixels.lastElementChild);
-    createDiv.classList.add('row', 'clearfix');
-    for (let boxes = 0; boxes < size; boxes += 1) {
-      const createDiv = document.createElement('div');
-      const accessRows = document.querySelectorAll('.row')
-      let toAddEventInPixels = accessRows[rows].appendChild(createDiv);
-      toAddEventInPixels.addEventListener('click', receiveColor);
-      createDiv.classList.add('pixel');
-      createDiv.style.backgroundColor = 'white';
+    // Atribui classe 'selected', e define que o elemento tenha sempre a cor preta
+    if (i === 0) {
+      createDiv.classList.add('selected');
+      createDiv.style.backgroundColor = 'black';
     }
   }
-}
+};
 
-// Muda tamanho do Quadro de Pixel
-accessVQV.addEventListener('click', () => {
-  sessionStorage.setItem('boardSize', JSON.stringify(accessInput.value));
-  window.location.reload();
-});
+/*-------------------------------------
+Inicio: criando o elemento Pixel Board
+---------------------------------------*/
+const receiveColor = (e) => {
+  e.target.style.backgroundColor = selectedColor;
+};
 
-// Limpa as cores do Quadro de Pixel
-accessReset.addEventListener('click', () => {
-  const accessPixels = document.querySelectorAll('.pixel');
-  for (let i of accessPixels) {
-    i.style.backgroundColor = 'white'
+// Funcao que gera o Pixel Board
+const generateBoard = () => {
+  // Cria as linhas
+  for (let rows = 0; rows < numberOfPixels; rows += 1) {
+    const createDiv = document.createElement('DIV');
+    let rowNum = `number-${rows + 1}`;
+    createDiv.classList.add('row', rowNum, 'clearfix');
+    selectBoard.insertBefore(createDiv, selectBoard.lastElementChild);
+    // Cria os pixels
+    for (let cols = 0; cols < numberOfPixels; cols += 1) {
+      const selectBoardRows = document.querySelectorAll('.row')
+      const createDiv = document.createElement('DIV');
+      let pixelNum = `pixel-${cols + 1}`;
+      createDiv.classList.add('pixel', pixelNum);
+      createDiv.addEventListener('click', receiveColor)
+      selectBoardRows[rows].appendChild(createDiv);
+    }
+  }
+};
+
+/*---------------------------------------------
+Inicio: configurando o elemento Board Configuration
+-----------------------------------------------*/
+// Botao Limpar Pixel Board
+selectCleannerButton.addEventListener('click', () => {
+  const selectPixels = document.querySelectorAll('.pixel');
+  for (let pixel of selectPixels) {
+    pixel.style.backgroundColor = 'white';
   }
 });
 
 
-// Loads padroes
+
+
+
+
+
+
+
+
+
+
+// Executa funcoes no carregamento da pagina
 window.onload = () => {
-  generateBoard(JSON.parse(sessionStorage.getItem('boardSize')));
-  sessionStorage.setItem('color', JSON.stringify('black'));
+  generatePalette();
+  generateBoard();
+  getColor();
 }

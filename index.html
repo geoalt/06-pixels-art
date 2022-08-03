@@ -15,35 +15,20 @@
 
 <body>
   <header>
-    <div class="wrapper center">
-      <h1 id="title">Paleta de Cores</h1>
-    </div>
+    <h1 id="title">Paleta de Cores</h1>
   </header>
-  <main>
-    <section class="wrapper fit-content center">
-      <div id="color-palette">
-        <div class="clearfix"></div>
-      </div>
-    </section>
+  <section id="color-palette" class="fit-content">
+    <div class="clearfix"></div>
+  </section>
 
-    <section>
-      <div class="wrapper center fit-content">
-        <input id="board-size" class='font-big' type="number" min="0" max="50" step="1">
-        <button id="generate-board" class="btn-criar font-big">VQV</button>
-        <button id='clear-board' class="btn-reset font-big center clearfix">Limpar</button>
-      </div>
+  <section id="board-config" class="fit-content">
+    <button id="clear-board">Limpar</button>
+    <div class="clearfix"></div>
+  </section>
 
-      <div class="center padded fit-content">
-        <div id="pixel-board" class="center">
-          <div class="clearfix"></div>
-        </div>
-      </div>
-    </section>
-    <footer class="fixed bottom">
-
-    </footer>
-  </main>
-
+  <section id="pixel-board" class="fit-content">
+    <div class="clearfix"></div>
+  </section>
 
   <script src="script.js"></script>
 </body>
