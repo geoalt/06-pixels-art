@@ -29,7 +29,7 @@ h3 {
 
 h1 {
   font-weight: 900;
-  font-size: 48px;
+  font-size: 50px;
 }
 
 p {
@@ -46,24 +46,25 @@ ol {
 
 /* Header */
 header {
-  padding: 60px 0 30px;
+  padding: 60px 0 40px;
   text-align: center;
 }
 
 /* Color Palette */
 .color {
-  border: 0.0625px solid black;
+  border: #000000 solid 1px;
   height: 45px;
   width: 45px;
   float: left;
-  margin-right: 15px;
+  margin-right: 40px;
+  border-radius: 5px;
 }
 
 .color:nth-child(4) {
   margin-right: 0;
 }
 section:nth-child(1) {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 /* Pixel Board */
@@ -100,7 +101,7 @@ input {
   height: 40px;
   margin-right: 20px;
   padding-left: 15px;
-  width: 450px;
+  width: 190px;
   outline: none;
 }
 
@@ -114,14 +115,15 @@ input:focus {
   color: white;
   display: block;
   height: 40px;
-  width: 90px;  
+  width: 95px;  
 }
 
 .btn-criar:hover {
   box-shadow: white 0 0 10px;
 }
 
-.btn-criar:active {
+.btn-criar:active,
+.btn-reset:active {
   transform: scale(95%);
 }
 
@@ -132,16 +134,12 @@ input:focus {
   color: #7c6c79;
   display: block;
   margin-top: 20px;
-  padding: 9px 70px;
+  padding: 9px 125px;
 }
 
 .btn-reset:hover {
   background-color:#7c6c79;
   color: #C9AFC4;
-}
-
-.btn-reset:active {
-  transform: translateY(1px);
 }
 
 /* Wrappers */

@@ -27,7 +27,11 @@
     </section>
 
     <section>
-      <button id='clear-board' class="btn-reset font-big center clearfix">Limpar</button>
+      <div class="wrapper center fit-content">
+        <input id="board-size" class='font-big' type="number" min="0" value="5">
+        <button id="generate-board" class="btn-criar font-big">VQV</button>
+        <button id='clear-board' class="btn-reset font-big center clearfix">Limpar</button>
+      </div>
 
       <div class="center padded fit-content">
         <div id="pixel-board" class="center">
@@ -36,11 +40,7 @@
       </div>
     </section>
     <footer class="fixed bottom">
-      <div class="wrapper center fit-content">
-        <input id="board-size" class='font-big' type="number" min="0"
-          placeholder="insira aqui o tamanho do novo quadro">
-        <button id="generate-board" class="btn-criar font-big">criar</button>
-      </div>
+
     </footer>
   </main>
 

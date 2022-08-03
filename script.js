@@ -11,7 +11,6 @@ const generateRandomColor = () => {
 
 // Remove as classes
 const removeClass = (element) => {
-  console.log(accessColor)
   for (let i of accessColor) {
     i.classList.remove('selected')
 
@@ -32,7 +31,10 @@ const getColor = (event) => {
 
 const receiveColor = (event) => {
   const changeColor = JSON.parse(sessionStorage.getItem('color'));
+
+
   event.target.style.backgroundColor = changeColor;
+
 };
 
 
