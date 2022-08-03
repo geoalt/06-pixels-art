@@ -94,14 +94,34 @@ selectCleannerButton.addEventListener('click', () => {
 });
 
 
-// sessionStorage.setItem('boardSize', JSON.stringify(selectInput.value));
-selectNewBoardButton.addEventListener('click', () => {
-  sessionStorage.setItem(
-    'numberOfPixelsStoraged',
-    JSON.stringify(selectInput.value)
-  );
+const reCheck = (n) => {
+  console.log(n)
+  if (n == '' || n < 0) {
+    alert('Board inválido!');
 
+  } else if (n > 50) {
+    sessionStorage.setItem(
+      'numberOfPixelsStoraged',
+      JSON.stringify('50')
+    );
+
+  }
   window.location.reload();
+
+};
+
+selectNewBoardButton.addEventListener('click', () => {
+  if (selectInput.value < 5 || selectInput.value > 50) {
+    sessionStorage.clear();
+    reCheck(selectInput.value);
+  } else {
+    sessionStorage.setItem(
+      'numberOfPixelsStoraged',
+      JSON.stringify(selectInput.value)
+    );
+
+    window.location.reload();
+  }
 });
 
 // Botao VQV para criar uma nova board
@@ -113,7 +133,6 @@ const generateBoard = () => {
       sessionStorage.getItem('numberOfPixelsStoraged')
     );
   }
-  selectInput.value = numberOfPixels;
   boardSettings(numberOfPixels);
 };
 
