@@ -20,46 +20,26 @@
     </div>
   </header>
   <main>
-    <section>
-      <div id="color-palette" class="wrapper center">
-        <ul>
-          <li class="color">
-            <div class="always-black"></div>
-          </li>
-          <li class="color">
-            <div></div>
-          </li>
-          <li class="color">
-            <div></div>
-          </li>
-          <li class="color">
-            <div></div>
-          </li>
-          <li class="add-color">
-            <div>+</div>
-          </li>
-        </ul>
+    <section class="wrapper fit-content center">
+      <div id="color-palette">
         <div class="clearfix"></div>
       </div>
     </section>
 
     <section>
-      <div class="center">
+      <button id='clear-board' class="btn-reset font-big center clearfix">Limpar</button>
+
+      <div class="center padded fit-content">
         <div id="pixel-board" class="center">
-
-
-
-
           <div class="clearfix"></div>
         </div>
-
       </div>
     </section>
     <footer class="fixed bottom">
       <div class="wrapper center fit-content">
-        <input class='font-big' type="text" placeholder="insira aqui o tamanho do novo quadro">
-        <button class="btn-criar font-big">criar</button>
-        <button class="btn-reset font-big center clearfix">novo quadro branco</button>
+        <input id="board-size" class='font-big' type="number" min="0"
+          placeholder="insira aqui o tamanho do novo quadro">
+        <button id="generate-board" class="btn-criar font-big">criar</button>
       </div>
     </footer>
   </main>
