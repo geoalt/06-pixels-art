@@ -1,10 +1,12 @@
 const selectPalette = document.querySelector('#color-palette');
 const selectBoard = document.querySelector('#pixel-board');
 const selectCleannerButton = document.querySelector('#clear-board');
+const selectNewBoardButton = document.querySelector('#generate-board');
+const selectInput = document.querySelector('#board-size');
 
 
 const numberOfColorOptions = 4;
-const numberOfPixels = 5;
+let numberOfPixels;
 let selectedColor;
 
 /*---------------------------------------
@@ -22,8 +24,8 @@ const generateRandColor = () => {
 
 // Funcao que pega a cor da paleta selecionada
 const getColor = () => {
-  let test = document.querySelector('.selected');
-  selectedColor = getComputedStyle(test).backgroundColor;
+  const selectClass = document.querySelector('.selected');
+  selectedColor = getComputedStyle(selectClass).backgroundColor;
 };
 
 // Funcao que alterna a classe 'selected'
@@ -61,7 +63,7 @@ const receiveColor = (e) => {
 };
 
 // Funcao que gera o Pixel Board
-const generateBoard = () => {
+const boardSettings = (numberOfPixels) => {
   // Cria as linhas
   for (let rows = 0; rows < numberOfPixels; rows += 1) {
     const createDiv = document.createElement('DIV');
@@ -91,6 +93,29 @@ selectCleannerButton.addEventListener('click', () => {
   }
 });
 
+
+// sessionStorage.setItem('boardSize', JSON.stringify(selectInput.value));
+selectNewBoardButton.addEventListener('click', () => {
+  sessionStorage.setItem(
+    'numberOfPixelsStoraged',
+    JSON.stringify(selectInput.value)
+  );
+
+  window.location.reload();
+});
+
+// Botao VQV para criar uma nova board
+const generateBoard = () => {
+  if (sessionStorage.length < 1) {
+    numberOfPixels = 5;
+  } else {
+    numberOfPixels = JSON.parse(
+      sessionStorage.getItem('numberOfPixelsStoraged')
+    );
+  }
+  selectInput.value = numberOfPixels;
+  boardSettings(numberOfPixels);
+};
 
 
 
