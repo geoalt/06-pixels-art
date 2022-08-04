@@ -25,7 +25,7 @@ const generateRandColor = () => {
 // Funcao que pega a cor da paleta selecionada
 const getColor = () => {
   const selectClass = document.querySelector('.selected');
-  selectedColor = getComputedStyle(selectClass).backgroundColor;
+  return selectedColor = getComputedStyle(selectClass).backgroundColor;
 };
 
 // Funcao que alterna a classe 'selected'
@@ -62,7 +62,7 @@ const receiveColor = (e) => {
   e.target.style.backgroundColor = selectedColor;
 };
 
-// Funcao que gera o Pixel Board
+// Funcao que configura o tamanho do Pixel Board
 const boardSettings = (numberOfPixels) => {
   // Cria as linhas
   for (let rows = 0; rows < numberOfPixels; rows += 1) {
@@ -76,7 +76,7 @@ const boardSettings = (numberOfPixels) => {
       const createDiv = document.createElement('DIV');
       let pixelNum = `pixel-${cols + 1}`;
       createDiv.classList.add('pixel', pixelNum);
-      createDiv.addEventListener('click', receiveColor)
+      createDiv.addEventListener('click', receiveColor);
       selectBoardRows[rows].appendChild(createDiv);
     }
   }
@@ -93,7 +93,7 @@ selectCleannerButton.addEventListener('click', () => {
   }
 });
 
-
+// Sanitiza input, e gera alerta
 const reCheck = (n) => {
   console.log(n)
   if (n == '' || n < 0) {
@@ -110,6 +110,7 @@ const reCheck = (n) => {
 
 };
 
+// Funcao que cria
 selectNewBoardButton.addEventListener('click', () => {
   if (selectInput.value < 5 || selectInput.value > 50) {
     sessionStorage.clear();
@@ -140,10 +141,10 @@ const generateBoard = () => {
 
 
 
-
-
-
-
+/* let mouseDown = false
+document.body.onmousedown = () => (mouseDown = true)
+document.body.onmouseup = () => (mouseDown = false)
+ */
 
 
 // Executa funcoes no carregamento da pagina
